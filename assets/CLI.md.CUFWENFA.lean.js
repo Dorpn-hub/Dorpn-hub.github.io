@@ -1,0 +1,1 @@
+import{_ as a,o as n,c as t,ag as s}from"./chunks/framework.D1ek-kcM.js";const u=JSON.parse('{"title":"Command Line Usage","description":"","frontmatter":{},"headers":[],"relativePath":"CLI.md","filePath":"CLI.md"}'),o={name:"CLI.md"};function i(r,e,d,p,l,c){return n(),t("div",null,[...e[0]||(e[0]=[s("",66)])])}const m=a(o,[["render",i]]);export{u as __pageData,m as default};

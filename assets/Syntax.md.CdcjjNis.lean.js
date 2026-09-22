@@ -1,0 +1,1 @@
+import{_ as i,o as a,c as e,ag as n}from"./chunks/framework.D1ek-kcM.js";const c=JSON.parse('{"title":"Syntax Basics","description":"","frontmatter":{},"headers":[],"relativePath":"Syntax.md","filePath":"Syntax.md"}'),t={name:"Syntax.md"};function l(p,s,h,r,d,o){return a(),e("div",null,[...s[0]||(s[0]=[n("",70)])])}const u=i(t,[["render",l]]);export{c as __pageData,u as default};
