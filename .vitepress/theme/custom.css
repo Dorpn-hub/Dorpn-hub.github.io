@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --vp-font-family-base: 'Inter', system-ui, sans-serif;
+  --vp-font-family-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --vp-c-brand-1: #0d9488;
+  --vp-c-brand-2: #14b8a6;
+  --vp-c-brand-3: #0f766e;
+  --vp-c-brand-soft: rgba(20, 184, 166, 0.14);
+
+  --vp-code-block-bg: #f6f8fa;   /* light mode ke liye light bg */
+  --vp-code-line-height: 1.7;
+
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, #14b8a6, #6366f1);
+  --vp-home-hero-image-background-image: linear-gradient(-45deg, #14b8a6 50%, #6366f1 50%);
+  --vp-home-hero-image-filter: blur(44px);
+}
+
+.dark {
+  --vp-c-brand-1: #2dd4bf;
+  --vp-c-brand-2: #14b8a6;
+  --vp-c-brand-3: #0d9488;
+  --vp-code-block-bg: #14171c;   /* dark mode ke liye dark bg */
+  --vp-c-bg: #0e1013;
+  --vp-c-bg-alt: #12151a;
+  --vp-c-bg-soft: #171a20;
+  --vp-c-bg-elv: #171a20;
+}
+
+/* ---- typography ---- */
+.vp-doc h1 { font-weight: 800; letter-spacing: -0.02em; }
+.vp-doc h2 {
+  border-top: none;              /* default line hatao */
+  margin-top: 48px;
+  padding-top: 0;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.vp-doc p, .vp-doc li { line-height: 1.8; }
+
+/* ---- code blocks ---- */
+.vp-doc div[class*='language-'] {
+  border-radius: 12px;
+  border: 1px solid var(--vp-c-divider);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  margin: 20px 0;
+}
+.dark .vp-doc div[class*='language-'] { box-shadow: none; }
+.vp-doc [class*='language-'] > span.lang { color: var(--vp-c-text-3); }
+
+/* ---- inline code ---- */
+.vp-doc :not(pre) > code {
+  color: var(--vp-c-brand-1);
+  border-radius: 6px;
+  padding: 0.15em 0.4em;
+}
+
+/* ---- tables ---- */
+.vp-doc th { background: var(--vp-c-bg-soft); font-weight: 600; }
+.vp-doc tr { background: transparent; }
+.vp-doc th, .vp-doc td { border: none; border-bottom: 1px solid var(--vp-c-divider); }
+
+/* ---- tip / warning boxes ---- */
+.vp-doc .custom-block { border-radius: 12px; }
+
+/* ---- sidebar ---- */
+.VPSidebarItem.is-active > .item .text { font-weight: 600; }
+
+::selection { background: var(--vp-c-brand-soft); }
