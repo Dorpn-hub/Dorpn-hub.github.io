@@ -58,7 +58,7 @@ The following program asks for a name and greets the user. It touches
 several of the language's core ideas at once: a compile-time constant, 
 a runtime-only variable, a function, and the automatic entry point.
 
-```dpn
+```nim
 Const GREETING :String = "Hello"
 
 func _Start() -> Unit:
