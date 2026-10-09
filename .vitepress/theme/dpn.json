@@ -1,0 +1,326 @@
+{
+  "name": "dorpn",
+  "displayName": "Dorpn",
+  "scopeName": "source.dorpn",
+  "aliases": ["dpn"],
+  "fileTypes": ["dpn"],
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#declarations" },
+    { "include": "#function-definition" },
+    { "include": "#loop-header" },
+    { "include": "#keywords" },
+    { "include": "#types" },
+    { "include": "#constants" },
+    { "include": "#numbers" },
+    { "include": "#builtin-functions" },
+    { "include": "#method-calls" },
+    { "include": "#function-calls" },
+    { "include": "#operators" },
+    { "include": "#punctuation" },
+    { "include": "#identifiers" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block.dorpn",
+          "begin": "#\\[",
+          "end": "\\]#",
+          "beginCaptures": { "0": { "name": "punctuation.definition.comment.begin.dorpn" } },
+          "endCaptures": { "0": { "name": "punctuation.definition.comment.end.dorpn" } },
+          "patterns": [{ "include": "#comments-nested" }]
+        },
+        {
+          "name": "comment.line.number-sign.dorpn",
+          "match": "#.*$",
+          "captures": { "0": { "name": "punctuation.definition.comment.dorpn" } }
+        },
+        {
+          "name": "comment.line.double-dash.dorpn",
+          "match": "--.*$"
+        }
+      ]
+    },
+    "comments-nested": {
+      "name": "comment.block.dorpn",
+      "begin": "#\\[",
+      "end": "\\]#",
+      "patterns": [{ "include": "#comments-nested" }]
+    },
+
+    "strings": {
+      "name": "string.quoted.double.dorpn",
+      "begin": "\"",
+      "end": "\"",
+      "beginCaptures": { "0": { "name": "punctuation.definition.string.begin.dorpn" } },
+      "endCaptures": { "0": { "name": "punctuation.definition.string.end.dorpn" } },
+      "patterns": [
+        {
+          "name": "constant.character.escape.dorpn",
+          "match": "\\\\(?:[ntr\\\\\"]|0[0-7]{0,2})"
+        },
+        {
+          "name": "constant.character.escape.other.dorpn",
+          "match": "\\\\."
+        }
+      ]
+    },
+
+    "declarations": {
+      "patterns": [
+        {
+          "comment": "Const NAME : Type = value",
+          "match": "\\b(Const)\\s+([A-Za-z_][A-Za-z0-9_]*)",
+          "captures": {
+            "1": { "name": "storage.type.const.dorpn" },
+            "2": { "name": "variable.other.constant.dorpn" }
+          }
+        },
+        {
+          "comment": "tag name : Type = value",
+          "match": "\\b(tag)\\s+([A-Za-z_][A-Za-z0-9_]*)",
+          "captures": {
+            "1": { "name": "storage.type.tag.dorpn" },
+            "2": { "name": "variable.other.readwrite.dorpn" }
+          }
+        },
+        {
+          "comment": "imm name : Type = value",
+          "match": "\\b(imm)\\s+([A-Za-z_][A-Za-z0-9_]*)",
+          "captures": {
+            "1": { "name": "storage.modifier.imm.dorpn" },
+            "2": { "name": "variable.other.immutable.dorpn" }
+          }
+        }
+      ]
+    },
+
+    "function-definition": {
+      "patterns": [
+        {
+          "comment": "func _Start() : program entry point",
+          "match": "\\b(func)\\s+(_Start)\\b",
+          "captures": {
+            "1": { "name": "storage.type.function.dorpn" },
+            "2": { "name": "entity.name.function.entry.dorpn" }
+          }
+        },
+        {
+          "comment": "func name(params) -> ReturnType:",
+          "begin": "\\b(func)\\b(?:\\s+([A-Za-z_][A-Za-z0-9_]*))?",
+          "beginCaptures": {
+            "1": { "name": "storage.type.function.dorpn" },
+            "2": { "name": "entity.name.function.dorpn" }
+          },
+          "end": "(?=:\\s*$|:\\s*#|:\\s*--|$)",
+          "patterns": [
+            { "include": "#function-params" },
+            { "include": "#return-type" },
+            { "include": "#types" }
+          ]
+        }
+      ]
+    },
+    "function-params": {
+      "begin": "\\(",
+      "end": "\\)",
+      "beginCaptures": { "0": { "name": "punctuation.definition.parameters.begin.dorpn" } },
+      "endCaptures": { "0": { "name": "punctuation.definition.parameters.end.dorpn" } },
+      "patterns": [
+        { "include": "#types" },
+        {
+          "name": "variable.parameter.dorpn",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_]*\\b"
+        },
+        {
+          "name": "punctuation.separator.comma.dorpn",
+          "match": ","
+        },
+        {
+          "name": "punctuation.separator.type.dorpn",
+          "match": ":"
+        }
+      ]
+    },
+    "return-type": {
+      "match": "(->)\\s*(Int32|Float32|Int|Float|String|Bool|Unit)\\b",
+      "captures": {
+        "1": { "name": "keyword.operator.arrow.dorpn" },
+        "2": { "name": "support.type.primitive.dorpn" }
+      }
+    },
+
+    "loop-header": {
+      "comment": "loop i in 10:  ('in' is contextual, only a keyword here)",
+      "match": "\\b(loop)\\s+([A-Za-z_][A-Za-z0-9_]*)\\s+(in)\\b",
+      "captures": {
+        "1": { "name": "keyword.control.loop.dorpn" },
+        "2": { "name": "variable.other.loop.dorpn" },
+        "3": { "name": "keyword.control.loop.in.dorpn" }
+      }
+    },
+
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.conditional.dorpn",
+          "match": "\\b(if|elif|else|case)\\b"
+        },
+        {
+          "name": "keyword.control.loop.dorpn",
+          "match": "\\b(loop|keep|halt|skip)\\b"
+        },
+        {
+          "name": "keyword.control.flow.return.dorpn",
+          "match": "\\b(return)\\b"
+        },
+        {
+          "name": "keyword.control.import.dorpn",
+          "match": "\\b(from|read|link)\\b"
+        },
+        {
+          "name": "keyword.operator.word.dorpn",
+          "match": "\\b(and|or|not|fld)\\b"
+        },
+        {
+          "name": "variable.language.self.dorpn",
+          "match": "\\b(self)\\b"
+        },
+        {
+          "name": "constant.language.void.dorpn",
+          "match": "\\b(void)\\b"
+        },
+        {
+          "name": "storage.type.declaration.dorpn",
+          "match": "\\b(tag|imm|Const|func)\\b"
+        }
+      ]
+    },
+
+    "types": {
+      "name": "support.type.primitive.dorpn",
+      "match": "\\b(Int32|Float32|Int|Float|String|Bool|Unit)\\b"
+    },
+
+    "constants": {
+      "patterns": [
+        {
+          "name": "constant.language.boolean.true.dorpn",
+          "match": "\\b(true)\\b"
+        },
+        {
+          "name": "constant.language.boolean.false.dorpn",
+          "match": "\\b(false)\\b"
+        }
+      ]
+    },
+
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.float.dorpn",
+          "match": "\\b[0-9]+\\.[0-9]+\\b"
+        },
+        {
+          "name": "constant.numeric.integer.dorpn",
+          "match": "\\b[0-9]+\\b"
+        }
+      ]
+    },
+
+    "builtin-functions": {
+      "comment": "Built-in functions (only when called)",
+      "match": "\\b(printOut|print|ask|type|Onload|finish|error_out|panic|abs|add|min|max)\\b(?=\\s*\\()",
+      "name": "support.function.builtin.dorpn"
+    },
+
+    "method-calls": {
+      "patterns": [
+        {
+          "comment": "Built-in methods: value.method(...)",
+          "match": "(\\.)\\s*(repeat|alter|flip|tidy|size|asInt32|asFloat32|asInt|asFloat|asString)\\b",
+          "captures": {
+            "1": { "name": "punctuation.accessor.dorpn" },
+            "2": { "name": "support.function.method.builtin.dorpn" }
+          }
+        },
+        {
+          "comment": "User/unknown method: value.method(...)",
+          "match": "(\\.)\\s*([A-Za-z_][A-Za-z0-9_]*)(?=\\s*\\()",
+          "captures": {
+            "1": { "name": "punctuation.accessor.dorpn" },
+            "2": { "name": "entity.name.function.method.dorpn" }
+          }
+        },
+        {
+          "comment": "Property access: value.prop",
+          "match": "(\\.)\\s*([A-Za-z_][A-Za-z0-9_]*)",
+          "captures": {
+            "1": { "name": "punctuation.accessor.dorpn" },
+            "2": { "name": "variable.other.property.dorpn" }
+          }
+        }
+      ]
+    },
+
+    "function-calls": {
+      "name": "entity.name.function.call.dorpn",
+      "match": "\\b[A-Za-z_][A-Za-z0-9_]*\\b(?=\\s*\\()"
+    },
+
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.arrow.dorpn",
+          "match": "->"
+        },
+        {
+          "name": "keyword.operator.assignment.compound.dorpn",
+          "match": "\\+=|-=|\\*=|/=|%="
+        },
+        {
+          "name": "keyword.operator.arithmetic.power.dorpn",
+          "match": "\\*\\*"
+        },
+        {
+          "name": "keyword.operator.comparison.dorpn",
+          "match": "==|!=|<=|>=|<|>"
+        },
+        {
+          "name": "keyword.operator.arithmetic.dorpn",
+          "match": "\\+|-|\\*|/|%"
+        },
+        {
+          "name": "keyword.operator.assignment.dorpn",
+          "match": "="
+        }
+      ]
+    },
+
+    "punctuation": {
+      "patterns": [
+        { "name": "punctuation.separator.comma.dorpn", "match": "," },
+        { "name": "punctuation.separator.colon.dorpn", "match": ":" },
+        { "name": "punctuation.accessor.dorpn", "match": "\\." },
+        { "name": "punctuation.section.parens.dorpn", "match": "[()]" },
+        { "name": "punctuation.section.brackets.dorpn", "match": "[\\[\\]]" }
+      ]
+    },
+
+    "identifiers": {
+      "patterns": [
+        {
+          "comment": "ALL_CAPS names are treated as constants",
+          "name": "variable.other.constant.dorpn",
+          "match": "\\b[A-Z][A-Z0-9_]+\\b"
+        },
+        {
+          "name": "variable.other.readwrite.dorpn",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_]*\\b"
+        }
+      ]
+    }
+  }
+}
