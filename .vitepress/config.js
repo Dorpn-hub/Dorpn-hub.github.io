@@ -1,5 +1,6 @@
 import dpn from './theme/dpn.json'
 export default {
+  base: '\',
   title: 'Dorpn Documentation',
   description: 'Official documentation for the Dorpn Programming Language.',
   themeConfig: {
