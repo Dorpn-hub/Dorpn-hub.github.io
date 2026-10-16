@@ -44,7 +44,7 @@ export default {
       { 
         text: 'Changelogs', 
         items: [
-            { text :'Changelog 0.4.4', link: '/Changelog'}
+            { text :'Changelog 0.4.4', link: '/0.4.4-changelog'}
         ]
       }
     ]
