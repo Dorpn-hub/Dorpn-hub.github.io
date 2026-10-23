@@ -57,7 +57,6 @@ Calling `dorpn` with no arguments prints the help text.
 | `-t` | `--time` | Show how long compilation took |
 | | `--out <path>` | Choose the output file |
 | `-js` | `--Javs` | Compile to JavaScript instead of C |
-| | `--upgrade` | Upgrade Dorpn to the latest version |
 
 If you pass an option that Dorpn does not know, it prints 
 `Unknown option` together with a hint to use `--help`, and exits with 
@@ -182,20 +181,12 @@ dorpn --help                   # list of all options
 
 ---
 
-## Upgrading
+## Updating
 
-```text
-dorpn --upgrade
-```
-
-This checks the latest release on GitHub and compares it to the 
-version you have installed. On Windows, if a newer version exists, it 
-downloads the installer and runs it silently. On other systems it only 
-prints the link to the release page, so you can download the update by 
-hand. If you are already on the 
-newest version, it says so and exits. If the network is not reachable, 
-it prints an error and the address of the releases page so you can 
-download the update by hand.
+Dorpn does not have a built-in updater. To update, download the latest 
+installer from the GitHub Releases page and run it. It replaces the 
+version you have installed. You can check which version you are 
+currently running with `dorpn --version`.
 
 ---
 
@@ -203,7 +194,7 @@ download the update by hand.
 
 | Target | What must be available |
 |--------|------------------------|
-| Native (default) | A C compiler (`clang`, `gcc` or `cc`, auto-detected in that order; override with `DORPN_CC`), and the Dorpn runtime files `dorpn_runtime.c` and `dorpn_runtime.h` |
+| Native (default) | A C compiler (`clang`, `gcc` or `cc`, auto-detected in that order; override with `DORPN_CC`), and the Dorpn runtime files |
 | JavaScript (`-js`) | Node.js, only if you use `--run` |
 
 Dorpn looks for the runtime files in this order and uses the first 
@@ -217,12 +208,6 @@ place where it finds both:
 
 If none of them contains the runtime, the compiler stops with 
 `Error: Dorpn runtime files not found!`.
-
-If `DORPN_RUNTIME_DIR` is set, which is the case on Android, the 
-executable is written to `/tmp` instead of next to the source file. 
-Storage folders on Android are mounted in a way that does not allow 
-programs to run from them, so a `/tmp` location is used to make the 
-result runnable.
 
 ---
 
