@@ -13,7 +13,7 @@
 ---
 
 ## Q: How do I update my Dorpn installation on Windows?
-**A:** Simply download the newest release binary from the official GitHub Releases page and replace your existing `dorpn` executable file.
+**A:** Download the newest installer from the official GitHub Releases page and run it. It replaces your existing installation. Dorpn does not have a built-in `--upgrade` command.
 
 ---
 
